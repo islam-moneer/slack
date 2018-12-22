@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use GuzzleHttp\Exception\GuzzleException;
 
 class HomeController extends Controller
 {
@@ -68,7 +66,8 @@ class HomeController extends Controller
             ]);
     }
 
-    public function invite(Request $request) {
+    public function invite(Request $request) 
+    {
         $this->validate($request, [
             'channels' => 'required',
             'user' => 'required'

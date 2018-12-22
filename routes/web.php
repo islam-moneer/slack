@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('users', 'UsersController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('slack/create', 'HomeController@create')->name('slack.create');
 Route::post('slack/invite', 'HomeController@invite')->name('slack.invite');

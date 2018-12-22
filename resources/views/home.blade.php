@@ -24,7 +24,7 @@
                         <div class="card">
                             @if (session('log'))
                                 <pre>
-                                    @php var_dump(session('log')) @endphp
+                                    {{ session('log') }}
                                 </pre>
                             @endif
                             @if ($errors->any())

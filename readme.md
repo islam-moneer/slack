@@ -24,4 +24,4 @@
 
 ## Features
 -  Create channel
-- invitate use to a channel
+- invitate user to a channel
