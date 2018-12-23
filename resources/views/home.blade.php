@@ -5,8 +5,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-            @include('layouts.sidebar')
-        <div class="col-md-9">
+        @include('layouts.sidebar')
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Slack operations</div>
                 <div class="card-body">
@@ -124,6 +124,30 @@
                     </div>
                 </div>
                     
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-default panel-flush">
+                <div class="card-header">Slack users</div>
+                <div class="card">
+                    <div class="panel-body">
+                        <div class="card-body">
+                            <ul class="nav" role="tablist">
+                                    @if($users->getUsers()->ok != true)
+                                        <li>Error in retrieve users</li>
+                                        @foreach($users->getUsers() as $user)
+                                            <li>@php print_r($user)@endphp</li>
+                                        @endforeach
+
+                                    @else
+                                        @foreach($users->getUsers()->members as $user)
+                                            <li>- {{$user->name}}</li>
+                                        @endforeach
+                                    @endif
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
