@@ -1,4 +1,5 @@
 @inject('channels', 'App\Services\Slack')
+@inject('users', 'App\Services\Slack')
 @extends('layouts.app')
 
 @section('content')
@@ -68,7 +69,19 @@
                                     <div class="form-group row">
                                         <label for="channels" class="col-sm-4 col-form-label text-md-right">Channel</label>
                                         <div class="col-md-6">
-                                            <input id="channels" type="channels" class="form-control{{ $errors->has('channels') ? ' is-invalid' : '' }}" name="channels" value="{{ old('channels') }}"  autofocus>
+                                            {{-- Channels --}}
+                                            @if($channels->getChannels()->ok != true)
+                                                <li>Error in retrieve channels</li>
+                                                @foreach($channels->getChannels() as $channel)
+                                                    <li>@php print_r($channel)@endphp</li>
+                                                @endforeach
+                                                @else
+                                            <select class="channels" id="channels" class="form-control{{ $errors->has('channels') ? ' is-invalid ' : '' }}" name="channels">
+                                                    @foreach($channels->getChannels()->channels as $channel)
+                                                        <option value="{{$channel->id}}">{{$channel->name}}</option>
+                                                    @endforeach                                               
+                                            </select>
+                                            @endif
                                             @if ($errors->has('channels'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('channels') }}</strong>
@@ -79,7 +92,18 @@
                                     <div class="form-group row">
                                         <label for="user" class="col-sm-4 col-form-label text-md-right">User</label>
                                         <div class="col-md-6">
-                                            <input id="user" type="user" class="form-control{{ $errors->has('user') ? ' is-invalid' : '' }}" name="user" value="{{ old('user') }}"  autofocus>
+                                            @if($users->getusers()->ok != true)
+                                                <li>Error in retrieve users</li>
+                                                @foreach($users->getUsers() as $user)
+                                                    <li>@php print_r($user)@endphp</li>
+                                                @endforeach
+                                                @else
+                                            <select class="user" id="user" class="form-control{{ $errors->has('user') ? ' is-invalid ' : '' }}" name="user">
+                                                    @foreach($users->getUsers()->members as $user)
+                                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                                    @endforeach                                               
+                                            </select>
+                                            @endif
                                             @if ($errors->has('user'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('user') }}</strong>

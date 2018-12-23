@@ -98,4 +98,9 @@ class HomeController extends Controller
             'status' => $response->ok == true?'User invited to the channel!':'Error while sending invitation!'
             ]);
     }
+
+    public function getUsers() {
+        $service = new \App\Services\Slack();
+        dd($service->getUsers());
+    }
 }
