@@ -103,4 +103,31 @@ class HomeController extends Controller
         $service = new \App\Services\Slack();
         dd($service->getUsers());
     }
+
+    public function test()
+    {
+        $payload = [ 
+            'query' => [
+                'token' => env('SLACK_TOKEN'),
+            ],
+            'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
+        ];
+        $response = $this->client->request('GET','rtm.start',$payload);
+        $channels = json_decode($response->getBody());
+        // dd($channels);
+        if ( $channels->ok == true ) {
+            // $client =  new Client(['base_uri' =>$channels->url]);
+            // $request = $client->request('GET','',$payload);
+            // $result = json_decode($request->getBody());
+            $url = $channels->url;
+            return view('chat')->with(compact('url'));
+        } else {
+            dd($channels);
+        }
+        return $channels;
+    }
+
+    public function send(Request $request, $id) {
+        dd($request->all());
+    }
 }

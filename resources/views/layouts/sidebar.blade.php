@@ -13,7 +13,7 @@
 
                             @else
                                 @foreach($channels->getChannels()->channels as $channel)
-                                    <a href="{{ route('channel', ['t' => $channel->id]) }}"><li>- {{$channel->name}}</li></a>
+                                    <a href="{{ route('conversation', ['id' => $channel->id]) }}"><li>- {{$channel->name}}</li></a>
                                 @endforeach
                             @endif
                     </ul>
